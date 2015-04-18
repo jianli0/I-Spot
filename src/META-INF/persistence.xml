@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="I-Spot">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+			
+		<class>edu.neu.cs5200.ispot.model.User</class>
+		<class>edu.neu.cs5200.ispot.model.Spot</class>
+		<class>edu.neu.cs5200.ispot.model.Information</class>
+		<class>edu.neu.cs5200.ispot.model.Comment</class>
+	    <class>edu.neu.cs5200.ispot.model.Video</class>
+	    <class>edu.neu.cs5200.ispot.model.Picture</class>
+	    <class>edu.neu.cs5200.ispot.model.Article</class>
+	    <class>edu.neu.cs5200.ispot.model.EndUser</class>
+		<class>edu.neu.cs5200.ispot.model.AdminUser</class>
+		
+		<properties>
+			<property name="eclipselink.jdbc.password" value="" />
+			<property name="eclipselink.jdbc.user" value="root" />
+			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/Ispot" />
+			<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
+			<property name="eclipselink.logging.level" value="ALL" />
+		</properties>
+	</persistence-unit>
+</persistence>
