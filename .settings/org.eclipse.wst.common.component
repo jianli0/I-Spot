@@ -2,6 +2,7 @@
     <wb-module deploy-name="I-Spot">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent/WEB-INF/lib/bootstrap-3.3.4-dist"/>
         <property name="context-root" value="I-Spot"/>
         <property name="java-output-path" value="/I-Spot/build/classes"/>
     </wb-module>

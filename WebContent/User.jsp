@@ -12,11 +12,11 @@
 <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	<div class="row">
 		<div class="col-sm-4 col-md-4 user-details">
             <div class="user-image">
-                <img src="http://www.gravatar.com/avatar/2ab7b2009d27ec37bffee791819a090c?s=100&d=mm&r=g" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
+                <img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
@@ -65,7 +65,6 @@
         </div>
 	</div>
 </div>
-
 </body>
 </html>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
