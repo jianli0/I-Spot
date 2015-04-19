@@ -41,7 +41,7 @@
 
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Sign in to continue to ISpot</h1>
+            <h1 class="text-center login-title">Create your account continue to ISpot</h1>
             <div class="account-wall">
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
@@ -61,7 +61,6 @@
                     Register</button> 
 <!--                    <a href="readAllUsers.jsp" class="btn btn-lg btn-primary btn-block" type="submit" name="action"
                      value="create" role="button">Register</a> -->
-                  <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
             <a href="SignIn.jsp" class="text-center new-account">Already Registered</a>
