@@ -13,66 +13,68 @@
 <div class="container">
 		
 		<%
-			UserDAO dao = new UserDAO();
-		
-			String action = request.getParameter("action");
-			
-			String username  = request.getParameter("username");
-			String password  = request.getParameter("password");
-			
-			List<User> users = dao.readAllUsers();
-			
-			if("signin".equals(action))
-			{
-				System.out.println("signin clicked");
-				for(User user:users)
-				{
-					if (user.getUsername().equals(username))
+					UserDAO dao = new UserDAO();
+						
+					String action = request.getParameter("action");
+					
+					String username  = request.getParameter("username");
+					String password  = request.getParameter("password");
+					
+					List<User> users = dao.readAllUsers();
+					
+					if("signin".equals(action))
 					{
-						if(user.getPassword().equals(password))
-						{	
-							/* <p>Your user page: <a href="user.jsp">here</a></p>  */
-							System.out.println("successful login");
+						System.out.println("the username get is " + username);
+						System.out.println("the password get is "+ password);
+						System.out.println("signin clicked before");
+						for(User user:users)
+						{
+							System.out.println("user"+ user.getId()+user.getUsername()+user.getPassword());
 							
+							if (user.getUsername().equals(username) && user.getPassword().equals(password))
+							{
+
+								/* <p>Your user page: <a href="user.jsp">here</a></p>  */
+								System.out.println("successful login");
+								%>
+								<p>Your user page: <a href="User.jsp?id=<%=user.getId()%>">here</a></p>
+								<%	break;
+
+							}
+							System.out.println("leave this user");
+
 						}
-							
+						System.out.println("signin clicked after");
 					}
-					  
-				}	
-				System.out.println("signin clicked");
-			}
-			
-			
-/*			public void checkUser(String s, String p, List<User> users)
-			{
-				for(User user:users)
-				{
-					if (user.getUsername().equals(username))
-					{
-						if(user.getPassword().equals(password))
-						{	
-							%>
+
+					/*public void checkUser(String s, String p, List<User> users)
+					 {
+					 for(User user:users)
+					 {
+					 if (user.getUsername().equals(username))
+					 {
+					 if(user.getPassword().equals(password))
+					 {
+				%>
 							
 							<p>Your user page: <a href="user.jsp">here</a></p> 
 							<!-- out.println("successful login");  -->
 							
 							<%
-						}
-							
-					}
-					  
-				}
-			}  
-*/
-			
-/* 			else if("delete".equals(action))
-			{
-				Integer id = Integer.parseInt(idStr);
-				dao.deleteMovie(id);
-			} */
-				
-/* 			List<Movie> movies = dao.readAllMovies(); */
-		%>
+															 }
+															 }
+															 }
+															 }  
+															 */
+															
+														/* 			else if("delete".equals(action))
+															{
+																Integer id = Integer.parseInt(idStr);
+																dao.deleteMovie(id);
+															} */
+																
+														/* 			List<Movie> movies = dao.readAllMovies(); */
+														%>
 		
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -82,8 +84,8 @@
                     alt="">
                     
                 <form class="form-signin" action="SignIn.jsp">
-                <input name="usrname" class="form-control" placeholder="Username" required autofocus>
-                <input name="password" class="form-control" placeholder="Password" required>
+                <input name="username" class="form-control" placeholder="Username" required autofocus>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="action" value="signin"
                 onclick="checkUser()" >
                     Sign in</button>
