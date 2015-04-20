@@ -21,34 +21,39 @@
 		String idStr = request.getParameter("id");
 		Integer user_id = Integer.parseInt(idStr);
 		
+		String idStr1 = request.getParameter("commentid");
+
 		
 		UserDAO user_dao = new UserDAO();
 		CommentDAO comment_dao = new CommentDAO();
 		InformationDAO info_dao = new InformationDAO();
 		
 		User user = user_dao.readUserById(user_id); 
-		
-		
-		List<Comment> comments = user.getComments();
 	
  		String action = request.getParameter("action");
- 		String spot = request.getParameter("comment");
+ 		
+/*  		String spot = request.getParameter("comment");
  		String information = request.getParameter("information");
- 		String comment_content  = request.getParameter("comment_content");
- 	/* 	
+ 		String comment_content  = request.getParameter("comment_content"); */
+ 	
+ 		/* 	
  		Integer new_spot_id = Integer.parseInt(spot);
  		Integer new_info_id = Integer.parseInt(information);
 		 */
-		
-
-/* 
-  		if("create".equals(action))
-		{
-			Comment new_comment = new Comment(null, comment, user,info);
-			comment_dao.createComment(new_comment);
-		}  */
-
- 
+		 
+	 if("delete".equals(action))
+			{
+				
+				Integer comment_id = Integer.parseInt(idStr1);
+				comment_dao.deleteComment(comment_id);
+				%>
+				<script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script>
+				<% 
+			} 
+		 
+	List<Comment> comments = user.getComments();
+		 
+	
 	%>
 	<div class="container">
 		<h1>User: <%= user.getFirstname() %></h1>		
@@ -63,18 +68,15 @@
 				<th></th>
 				<th>&nbsp;</th>
 			</tr>
-			<tr>
-			<!-- can be made a downdrag rectangle -->
+<!-- 			<tr>
+			can be made a downdrag rectangle
 				<td><input name="spot" class="form-control" placeholder="spot_id"
 							required autofocus/></td>
 				<td><input name="information" class="form-control" placeholder="information_id"
 							required autofocus/></td>
 				<td><input name="comment_content" class="form-control" placeholder="comment"
 							required autofocus/></td>
-				<td>
-					<button class="btn btn-primary" type="submit" name="action" value="create">Create</button>
-				</td>
-			</tr>
+			</tr> -->
 		<%
 			for(Comment comment : comments)
 			{
@@ -88,7 +90,7 @@
 				<td><%= comment.getInfo().getContent() %></td>
 				<td><%= comment.getContent() %></td>
 				<td>
-					<a href="movies.jsp?action=delete&id=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+					<a href="User_Comment.jsp?id=<%=user.getId()%>&action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
 				</td>
 			</tr>
 		<%
