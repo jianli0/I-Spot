@@ -52,11 +52,5 @@ public class CommentDAO {
 		em.remove(Comment);
 		em.getTransaction().commit();
 	}
-	
-
-
-
-
-
 }
 

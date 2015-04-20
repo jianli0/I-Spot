@@ -14,58 +14,95 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js">
+</script>
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<div class="container">
+	<%
+		String idStr = request.getParameter("id");
+		Integer user_id = Integer.parseInt(idStr);
+		
+		
+		UserDAO user_dao = new UserDAO();
+		CommentDAO comment_dao = new CommentDAO();
+		InformationDAO info_dao = new InformationDAO();
+		
+		User user = user_dao.readUserById(user_id); 
+		
+		
+		List<Comment> comments = user.getComments();
+	
+ 		String action = request.getParameter("action");
+ 		String spot = request.getParameter("comment");
+ 		String information = request.getParameter("information");
+ 		String comment_content  = request.getParameter("comment_content");
+ 	/* 	
+ 		Integer new_spot_id = Integer.parseInt(spot);
+ 		Integer new_info_id = Integer.parseInt(information);
+		 */
+		
+
+/* 
+  		if("create".equals(action))
+		{
+			Comment new_comment = new Comment(null, comment, user,info);
+			comment_dao.createComment(new_comment);
+		}  */
+
+ 
+	%>
+	<div class="container">
+		<h1>User: <%= user.getFirstname() %></h1>		
+		<h2>Comments</h2>
+		
+		<form action="User_Comment.jsp">
+		<table class="table table-striped">
+			<tr>
+				<th>Spot</th>
+				<th>Information</th>
+				<th>Comment</th>
+				<th></th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+			<!-- can be made a downdrag rectangle -->
+				<td><input name="spot" class="form-control" placeholder="spot_id"
+							required autofocus/></td>
+				<td><input name="information" class="form-control" placeholder="information_id"
+							required autofocus/></td>
+				<td><input name="comment_content" class="form-control" placeholder="comment"
+							required autofocus/></td>
+				<td>
+					<button class="btn btn-primary" type="submit" name="action" value="create">Create</button>
+				</td>
+			</tr>
 		<%
-			
-			String idStr = request.getParameter("id");
-		    String action = request.getParameter("action");
-		    String title  = request.getParameter("title");
-		    String poster = request.getParameter("poster");
-		    String movieId = request.getParameter("movieId");
-		    
-			Integer id = Integer.parseInt(idStr);
-			UserDAO dao = new UserDAO();
-			User user = dao.readUserById(id); 
-
-		    if("create".equals(action))
-		    {
-		        Movie movie = new Movie();
-		        movie.setTitle(title);
-		        movie.setPoster(poster);
-		        movie.setMovieId(movieId);
-		        movieDAO.create(movie);
-		    }
-		    else if("delete".equals(action))
-		    {
-		        int idInt = Integer.parseInt(id);
-		        movieDAO.deleteMovie(idInt);   
-		    }
-		    else if("update".equals(action))
-		    {
-		        int idInt = Integer.parseInt(id);
-		        Movie movie = new Movie();
-		        movie.setTitle(title);
-		        movie.setPoster(poster);
-		        movie.setMovieId(movieId);
-		        movieDAO.updateMovie(idInt, movie);
-		    }
-			
-			/* System.out.println(user.getFirstname()); */
-			
-/* 			if("create".equals(action))
+			for(Comment comment : comments)
 			{
-				User user = new User(null,password,firstname,lastname,email,username,type);
-				dao.createUser(user);
-			} */
-			
+		%>	<tr>
+<%-- 				<td>
+					<a href="movieDetails.jsp?id=<%= movie.getId() %>">
+					<%= comment.getContent() %>
+					</a>
+				</td> --%>
+				<td><%= comment.getInfo().getSpot().getLocationname() %></td>
+				<td><%= comment.getInfo().getContent() %></td>
+				<td><%= comment.getContent() %></td>
+				<td>
+					<a href="movies.jsp?action=delete&id=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+		<%
+			}
 		%>
-
+		</table>
+		</form>
+	</div>
 
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+</script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+</script>
 </body>
 </html>
