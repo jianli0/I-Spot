@@ -20,10 +20,37 @@
 		<%
 			
 			String idStr = request.getParameter("id");
-			System.out.println(idStr);
+		    String action = request.getParameter("action");
+		    String title  = request.getParameter("title");
+		    String poster = request.getParameter("poster");
+		    String movieId = request.getParameter("movieId");
+		    
 			Integer id = Integer.parseInt(idStr);
 			UserDAO dao = new UserDAO();
 			User user = dao.readUserById(id); 
+
+		    if("create".equals(action))
+		    {
+		        Movie movie = new Movie();
+		        movie.setTitle(title);
+		        movie.setPoster(poster);
+		        movie.setMovieId(movieId);
+		        movieDAO.create(movie);
+		    }
+		    else if("delete".equals(action))
+		    {
+		        int idInt = Integer.parseInt(id);
+		        movieDAO.deleteMovie(idInt);   
+		    }
+		    else if("update".equals(action))
+		    {
+		        int idInt = Integer.parseInt(id);
+		        Movie movie = new Movie();
+		        movie.setTitle(title);
+		        movie.setPoster(poster);
+		        movie.setMovieId(movieId);
+		        movieDAO.updateMovie(idInt, movie);
+		    }
 			
 			/* System.out.println(user.getFirstname()); */
 			
@@ -35,50 +62,6 @@
 			
 		%>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="todolist not-done">
-             <h1>Todos</h1>
-                <input type="text" class="form-control add-todo" placeholder="Add todo">
-                    <button id="checkAll" class="btn btn-success">Mark all as done</button>
-                    
-                    <hr>
-                    <ul id="sortable" class="list-unstyled">
-                    <li class="ui-state-default">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" />Take out the trash</label>
-                        </div>
-                    </li>
-                    <li class="ui-state-default">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" />Buy bread</label>
-                        </div>
-                    </li>
-                    <li class="ui-state-default">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" />Teach penguins to fly</label>
-                        </div>
-                    </li>
-                </ul>
-                <div class="todo-footer">
-                    <strong><span class="count-todos"></span></strong> Items Left
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="todolist">
-             <h1>Already Done</h1>
-                <ul id="done-items" class="list-unstyled">
-                    <li>Some item <button class="remove-item btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></li>
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
