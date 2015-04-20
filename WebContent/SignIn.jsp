@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sign In</title>
 <link rel="stylesheet"
@@ -11,18 +12,13 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="style.css">
+	
+	
 </head>
 <body>
 
 
-<!-- TODO
- <script>
-$(document).ready(function(){
-$('#1').click(function() {
-window.location= "User.jsp";
-});
-})
-</script> -->
+
 
 	<div class="container">
 
@@ -30,7 +26,6 @@ window.location= "User.jsp";
 			UserDAO dao = new UserDAO();
 
 			String action = request.getParameter("action");
-
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 
@@ -38,31 +33,15 @@ window.location= "User.jsp";
 
 
 			if ("signin".equals(action)) {
-				System.out.println("the username get is " + username);
-				System.out.println("the password get is " + password);
-				System.out.println("signin clicked before");
 				for (User user : users) {
-					System.out.println("user" + user.getId()
-							+ user.getUsername() + user.getPassword());
-
 					if (user.getUsername().equals(username)
 							&& user.getPassword().equals(password)) {
-
-						/* <p>Your user page: <a href="user.jsp">here</a></p>  */
-						
-								System.out.println("successful login");
 		%>
-		<p>
-			Your user page: <a href="User.jsp?id=<%=user.getId()%>">here</a>
-		</p>
+ 							<script>window.location= "User.jsp?id=<%= user.getId() %>";</script>
 		<%
-			break;
-
+							break;
 					}
-					System.out.println("leave this user");
-
 				}
-				System.out.println("signin clicked after");
 			}
 		%>
 
