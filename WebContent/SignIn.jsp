@@ -64,14 +64,6 @@ window.location= "User.jsp";
 				}
 				System.out.println("signin clicked after");
 			}
-
-			/* 			else if("delete".equals(action))
-				{
-					Integer id = Integer.parseInt(idStr);
-					dao.deleteMovie(id);
-				} */
-
-			/* 			List<Movie> movies = dao.readAllMovies(); */
 		%>
 
 		<div class="row">

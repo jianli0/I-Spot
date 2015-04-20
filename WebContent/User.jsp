@@ -6,16 +6,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>home page</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="style.css"> 
 </head>
+
 <body>
-
-
-
 <div class="container">
+		<%
+			
+			String idStr = request.getParameter("id");
+			System.out.println(idStr);
+			Integer id = Integer.parseInt(idStr);
+			UserDAO dao = new UserDAO();
+			User user = dao.readUserById(id); 
+			
+			/* System.out.println(user.getFirstname()); */
+			
+/* 			if("create".equals(action))
+			{
+				User user = new User(null,password,firstname,lastname,email,username,type);
+				dao.createUser(user);
+			} */
+			
+		%>
 	<div class="row">
 		<div class="col-sm-4 col-md-4 user-details">
             <div class="user-image">
@@ -23,28 +38,27 @@
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
-                    <h3>Karan Singh Sisodia</h3>
-                    <span class="help-block">Chandigarh, IN</span>
+                    <h3><%=user.getFirstname()%>  <%=user.getLastname()%></h3>
                 </div>
                 <ul class="navigation">
                     <li class="active">
-                        <a data-toggle="tab" href="#information">
-                            <span class="glyphicon glyphicon-user"></span>
+                        <a data-toggle="tab">
+                            <span class="glyphicon glyphicon-envelope"></span><p><%=user.getEmail() %></p>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#settings">
-                            <span class="glyphicon glyphicon-cog"></span>
+                        <a data-toggle="tab" href="User_information.jsp?id=<%=user.getId()%>">
+                            <span class="glyphicon glyphicon-picture"></span>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#email">
-                            <span class="glyphicon glyphicon-envelope"></span>
+                        <a data-toggle="tab" href="User_Spot.jsp?id=<%=user.getId()%>">
+                            <span class="glyphicon glyphicon-home"></span>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#events">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                        <a data-toggle="tab" href="User_Comment.jsp?id=<%=user.getId()%>">
+                            <span class="glyphicon glyphicon-text-color"></span>
                         </a>
                     </li>
                 </ul>
