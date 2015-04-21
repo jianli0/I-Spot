@@ -72,17 +72,19 @@ public class UserDAO {
 		return user.getSpots();
 	}
 	
-	public List<Spot> unsubscribeSpot(Integer id, Spot spot){
-		UserDAO Udao = new UserDAO();
-		SpotDAO Sdao = new SpotDAO();
-		em.getTransaction().begin();
+	public void unsubscribeSpot(Integer id, Spot spot){
+//		UserDAO Udao = new UserDAO();
+//		SpotDAO Sdao = new SpotDAO();
+//		em.getTransaction().begin();
 //	    User user = em.find(User.class, id);
-		User user = Udao.readUserById(id);
-		spot.getUsers().remove(user);
-		user.getSpots().remove(spot);
-	    em.getTransaction().commit();
-		return user.getSpots();
+//		spot.getUsers().remove(user);
+//		user.getSpots().remove(spot);
+//	    em.getTransaction().commit();
+//		return user.getSpots();
+		System.out.println("not working");
 	}
+
+
 	
 	// user share information
 	
@@ -105,6 +107,10 @@ public class UserDAO {
 		return user.getFollowedUsers();
 	}
 	
+	public void unfollowingUser(Integer id, User following){
+		System.out.println("not working");
+	}
+	
 	//makeComment
 	public List<Comment> makeComment(Integer id, Comment comment){
 		em.getTransaction().begin();
@@ -118,58 +124,15 @@ public class UserDAO {
 	
 	//for test
 	
-	// subscribeSpot
-	// user share information
-	// FollowingUser
-	// makeComment
-	// for test
-	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	
-	// readUserById
 	UserDAO Udao = new UserDAO();
-    User user = Udao.readUserById(2);
+    System.out.println("------follow -----");
     
-    // read spot
-    List<Spot> spots =user.getSpots();
-    for (Spot spot: spots){
-    	System.out.println(spot);	
-    }
-        
-    // read following user
-    System.out.println("------read following user-----");
-    List<User> following_users =user.getFollowingUsers();
-    for (User u: following_users ){
-    	System.out.println(u.getFirstname());	
-    	System.out.println(u.getLastname());
-    	
-    }
+    User user12 = Udao.readUserById(12);
     
-	System.out.println("------read followed user-----");
-    // read followed user
-    List<User> followed_users =user.getFollowedUsers();
-    for (User u: followed_users ){
-    	System.out.println(u.getFirstname());	
-    	System.out.println(u.getLastname());
-    	
-    }
-    
-	System.out.println("------read informations-----");
-    // TODO read informations
-    List<Information> informations =user.getInformations();
-    for (Information i: informations ){
-    	System.out.println(i);		
-    }
-    
-	System.out.println("------read comments-----");
-    // TODO	read comments
-    List<Comment> comments =user.getComments();
-    for (Comment c: comments ){
-    	System.out.println(c.getContent());		
-    }
-    
-    
+    Udao.followingUser(1,user12);
+	}
+}
 //    System.out.println("------subscribe-----");
 //    SpotDAO sdao = new SpotDAO();
 //    Spot spot1 =	 sdao.readSpotById(1);
@@ -180,15 +143,31 @@ public class UserDAO {
 //    	System.out.println(s.getLocationname());		
 //    }
     
-    
-    System.out.println("------unsubscribe-----");
-    SpotDAO sdao = new SpotDAO();
-    Spot spot1 =	 sdao.readSpotById(1);
- 
-    List<Spot> spots2 = Udao.unsubscribeSpot(2,spot1);
-    for (Spot s: spots2 ){
-    	System.out.println(s.getLocationname());		
-    }
-	}
 
-}
+    
+//    for (User s: users ){
+//    	System.out.println(s.getFirstname());		
+//    }
+    
+//    System.out.println("------subscirbe -----");
+//    User user1 = Udao.readUserById(1);
+//    
+//    SpotDAO sdao = new SpotDAO();
+//    Spot spot3 =	 sdao.readSpotById(3);
+//    
+//    Udao.subscribeSpot(1,spot3);
+//    List<Spot> spots1 = user1.getSpots();
+//    for (Spot s: spots1 ){
+//    	System.out.println(s.getLocationname());		
+//    }
+    
+    
+//    System.out.println("------unsubscribe-----");
+//    SpotDAO sdao = new SpotDAO();
+//    Spot spot1 =	 sdao.readSpotById(1);
+ 
+//    List<Spot> spots2 = Udao.unsubscribeSpot(2,spot1);
+//    for (Spot s: spots2 ){
+//    	System.out.println(s.getLocationname());		
+//    }
+
