@@ -18,16 +18,14 @@
 </script>
 
 	<%
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
-		
-		String idStr1 = request.getParameter("commentid");
-
-		
 		UserDAO user_dao = new UserDAO();
 		CommentDAO comment_dao = new CommentDAO();
 		InformationDAO info_dao = new InformationDAO();
 		
+		String idStr = request.getParameter("id");
+		Integer user_id = Integer.parseInt(idStr);
+		
+		String idStr1 = request.getParameter("commentid");		
 		User user = user_dao.readUserById(user_id); 
 	
  		String action = request.getParameter("action");
@@ -47,11 +45,11 @@
 				Integer comment_id = Integer.parseInt(idStr1);
 				comment_dao.deleteComment(comment_id);
 				%>
-				<script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script>
+				<%-- <script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script> --%>
 				<% 
 			} 
-		 
-	List<Comment> comments = user.getComments();
+		
+		List<Comment> comments = user.getComments();
 		 
 	
 	%>
@@ -65,7 +63,6 @@
 				<th>Spot</th>
 				<th>Information</th>
 				<th>Comment</th>
-				<th></th>
 				<th>&nbsp;</th>
 			</tr>
 <!-- 			<tr>

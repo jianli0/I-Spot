@@ -71,6 +71,15 @@ public class UserDAO {
 		return user.getSpots();
 	}
 	
+	public List<Spot> unsubscribeSpot(Integer id, Spot spot){
+		em.getTransaction().begin();
+	    User user = em.find(User.class, id);
+		spot.getUsers().remove(user);
+		user.getSpots().remove(spot);
+	    em.getTransaction().commit();
+		return user.getSpots();
+	}
+	
 	// user share information
 	
 	public List<Information> share(Integer id, Information info){
@@ -155,6 +164,17 @@ public class UserDAO {
     for (Comment c: comments ){
     	System.out.println(c.getContent());		
     }
+    
+    System.out.println("------unsubscribe-----");
+    Spot spot1 =	 new Spot(1,"Northeastern","1h");
+    
+    Udao.unsubscribeSpot(2,spot1);
+    List<Spot> spots2 =user.getSpots();
+    for (Spot s: spots2 ){
+    	System.out.println(s.getLocationname());		
+    }
+    
+ 
     
 	
 
