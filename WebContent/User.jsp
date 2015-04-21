@@ -17,18 +17,13 @@
 		<%
 			
 			String idStr = request.getParameter("id");
-			System.out.println(idStr);
+
 			Integer id = Integer.parseInt(idStr);
 			UserDAO dao = new UserDAO();
 			User user = dao.readUserById(id); 
 			
-			/* System.out.println(user.getFirstname()); */
 			
-/* 			if("create".equals(action))
-			{
-				User user = new User(null,password,firstname,lastname,email,username,type);
-				dao.createUser(user);
-			} */
+  
 			
 		%>
 	<div class="row">
@@ -65,7 +60,7 @@
                 <div class="user-body">
                     <div class="tab-content">
                         <div id="information" class="tab-pane active">
-                            <h4>Account Information</h4>
+                        <a href="SignIn.jsp" class="btn btn-danger">Sign Out</a>
                         </div>
                         <div id="settings" class="tab-pane">
                             <h4>Settings</h4>
