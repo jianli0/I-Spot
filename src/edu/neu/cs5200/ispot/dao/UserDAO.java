@@ -13,6 +13,7 @@ import edu.neu.cs5200.ispot.model.EndUser;
 import edu.neu.cs5200.ispot.model.Information;
 import edu.neu.cs5200.ispot.model.Spot;
 import edu.neu.cs5200.ispot.model.User;
+import edu.neu.cs5200.ispot.dao.*;
 
 public class UserDAO {
 
@@ -72,8 +73,11 @@ public class UserDAO {
 	}
 	
 	public List<Spot> unsubscribeSpot(Integer id, Spot spot){
+		UserDAO Udao = new UserDAO();
+		SpotDAO Sdao = new SpotDAO();
 		em.getTransaction().begin();
-	    User user = em.find(User.class, id);
+//	    User user = em.find(User.class, id);
+		User user = Udao.readUserById(id);
 		spot.getUsers().remove(user);
 		user.getSpots().remove(spot);
 	    em.getTransaction().commit();
@@ -165,19 +169,26 @@ public class UserDAO {
     	System.out.println(c.getContent());		
     }
     
-    System.out.println("------unsubscribe-----");
-    Spot spot1 =	 new Spot(1,"Northeastern","1h");
     
-    Udao.unsubscribeSpot(2,spot1);
-    List<Spot> spots2 =user.getSpots();
+//    System.out.println("------subscribe-----");
+//    SpotDAO sdao = new SpotDAO();
+//    Spot spot1 =	 sdao.readSpotById(1);
+//    
+//    Udao.subscribeSpot(2,spot1);
+//    List<Spot> spots2 =user.getSpots();
+//    for (Spot s: spots2 ){
+//    	System.out.println(s.getLocationname());		
+//    }
+    
+    
+    System.out.println("------unsubscribe-----");
+    SpotDAO sdao = new SpotDAO();
+    Spot spot1 =	 sdao.readSpotById(1);
+ 
+    List<Spot> spots2 = Udao.unsubscribeSpot(2,spot1);
     for (Spot s: spots2 ){
     	System.out.println(s.getLocationname());		
     }
-    
- 
-    
-	
-
 	}
 
 }
