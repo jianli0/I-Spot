@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-
-
 import edu.neu.cs5200.ispot.model.Comment;
 import edu.neu.cs5200.ispot.model.EndUser;
 import edu.neu.cs5200.ispot.model.Information;
@@ -35,6 +33,7 @@ public class UserDAO {
 		return em.find(User.class, id);
 	}
 	
+
 	//readAllUsers
 	public List<User> readAllUsers()
 	{
@@ -72,19 +71,19 @@ public class UserDAO {
 		return user.getSpots();
 	}
 	
-	public void unsubscribeSpot(Integer id, Spot spot){
-//		UserDAO Udao = new UserDAO();
-//		SpotDAO Sdao = new SpotDAO();
-//		em.getTransaction().begin();
-//	    User user = em.find(User.class, id);
-//		spot.getUsers().remove(user);
-//		user.getSpots().remove(spot);
-//	    em.getTransaction().commit();
-//		return user.getSpots();
-		System.out.println("not working");
-	}
-
-
+	public List<Spot> unsubscribeSpot(Integer id, Spot spot){
+		em.getTransaction().begin();
+		    UserDAO dao = new UserDAO();
+		User user = dao.readUserById(id);
+		int userid=spot.getUserIndex(user);
+		int spotid=user.getSpotIndex(spot);
+		spot.getUsers().remove(userid);
+		user.getSpots().remove(spotid);
+		em.merge(user);
+		em.merge(spot);
+		em.getTransaction().commit();
+		return user.getSpots();
+		}
 	
 	// user share information
 	
@@ -107,11 +106,20 @@ public class UserDAO {
 		return user.getFollowedUsers();
 	}
 	
-	public void unfollowingUser(Integer id, User following){
-		System.out.println("not working");
-	}
+//	public List<User> unfollowingUser(Integer id, User following){
+//		em.getTransaction().begin();
+//	    UserDAO dao = new UserDAO();
+//		User user = dao.readUserById(id);
+//		int user1id= user2.getFollowedUserIndex(user);
+//		int user2id= user1.getFollowingUserIndex(spot);
+//		spot.getUsers().remove(userid);
+//		user.getSpots().remove(spotid);
+//		em.merge(user);
+//		em.merge(spot);
+//		em.getTransaction().commit();
+//		return user.getSpots();
+//	}
 	
-	//makeComment
 	public List<Comment> makeComment(Integer id, Comment comment){
 		em.getTransaction().begin();
 	    User user = em.find(User.class, id);
@@ -122,52 +130,20 @@ public class UserDAO {
 	}
 	
 	
-	//for test
-	
 	public static void main(String[] args) {
-	UserDAO Udao = new UserDAO();
-    System.out.println("------follow -----");
+		// TODO Auto-generated method stub
+
+//	UserDAO Udao = new UserDAO();
+//    User user = Udao.readUserById(6);
+//	//InformationDAO IDAO = new InformationDAO();
+//	//Information info = IDAO.readInformationById(1);
+//    Udao.followingUser(7,user);
     
-    User user12 = Udao.readUserById(12);
-    
-    Udao.followingUser(1,user12);
+//    System.out.println("-------subscribe-------");
+//    SpotDAO Sdao= new SpotDAO();
+//    Spot s3 = Sdao.readSpotById(3);
+//    Udao.subscribeSpot(1,s3);
+
 	}
+
 }
-//    System.out.println("------subscribe-----");
-//    SpotDAO sdao = new SpotDAO();
-//    Spot spot1 =	 sdao.readSpotById(1);
-//    
-//    Udao.subscribeSpot(2,spot1);
-//    List<Spot> spots2 =user.getSpots();
-//    for (Spot s: spots2 ){
-//    	System.out.println(s.getLocationname());		
-//    }
-    
-
-    
-//    for (User s: users ){
-//    	System.out.println(s.getFirstname());		
-//    }
-    
-//    System.out.println("------subscirbe -----");
-//    User user1 = Udao.readUserById(1);
-//    
-//    SpotDAO sdao = new SpotDAO();
-//    Spot spot3 =	 sdao.readSpotById(3);
-//    
-//    Udao.subscribeSpot(1,spot3);
-//    List<Spot> spots1 = user1.getSpots();
-//    for (Spot s: spots1 ){
-//    	System.out.println(s.getLocationname());		
-//    }
-    
-    
-//    System.out.println("------unsubscribe-----");
-//    SpotDAO sdao = new SpotDAO();
-//    Spot spot1 =	 sdao.readSpotById(1);
- 
-//    List<Spot> spots2 = Udao.unsubscribeSpot(2,spot1);
-//    for (Spot s: spots2 ){
-//    	System.out.println(s.getLocationname());		
-//    }
-

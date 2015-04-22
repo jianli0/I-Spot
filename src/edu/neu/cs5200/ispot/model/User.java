@@ -166,6 +166,33 @@ public class User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
+
+
+	public boolean IsSubed (Spot spot){
+	boolean value= false;
+	for(Spot s : this.spots){
+	if(s.getId()==spot.getId())
+	value=true;
+	}
+	return value;
+	}
+	
+	public int getSpotIndex(Spot spot){
+		int i;
+		for (i=0;i<this.spots.size(); i++){
+		if(this.spots.get(i).getId()==spot.getId())
+		break;}
+		return i;
+		}
+	
+	public int getUserIndex(User user){
+		int i;
+		for (i=0;i<this.followedUsers.size(); i++){
+		if(this.followedUsers.get(i).getId()==user.getId())
+		break;}
+		return i;
+		}
 
 
 

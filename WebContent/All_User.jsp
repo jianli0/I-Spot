@@ -22,15 +22,16 @@
 		
 		String idStr = request.getParameter("id");
 		Integer user_id = Integer.parseInt(idStr);
-		String idStr1 = request.getParameter("uid");
+		
 		
 		User user = user_dao.readUserById(user_id); 
 		
 	
  		String action = request.getParameter("action");
 		
-		 if("delete".equals(action))
+		 if("follow".equals(action))
 			{
+			 String idStr1 = request.getParameter("uid");
 			 Integer second_id = Integer.parseInt(idStr1);
 			 User second_user = user_dao.readUserById(second_id);
 			 user_dao.followingUser(user_id,second_user);
@@ -60,10 +61,15 @@
 				<td>
 					<a href="All_User.jsp?id=<%=user.getId()%>&action=follow&uid=<%= u.getId() %>" class="btn btn-primary">Follow</a>
 				</td>
-			</tr>
-		<%
-			}
-		%>
+			<%if ("A".equals(user.getType()))
+					{ %>
+				
+				<td>
+					<a href="All_User.jsp?id=<%=user.getId()%>&action=delete&uid=<%= u.getId() %>" class="btn btn-danger">Delete</a>
+				</td>
+				</tr>
+				<% }
+			}%>
 		</table>
 		</form>
 	</div>

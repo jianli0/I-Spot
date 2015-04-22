@@ -28,7 +28,7 @@ public class SpotDAO {
 	}
 
 	// readAllSpots
-	public List<Spot> readAllMovies()
+	public List<Spot> readAllSpots()
 	{
 		Query query = em.createQuery("select spot from Spot spot");
 		return (List<Spot>)query.getResultList();

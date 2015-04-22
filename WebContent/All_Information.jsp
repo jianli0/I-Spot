@@ -6,33 +6,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>All Information</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 <body>
-	<div class="container">
-		<h1>User: <%= user.getFirstname() %></h1>		
-		<h2>Comments</h2>
+	<div class="container">	
+	
+	<%
+			InformationDAO idao = new InformationDAO();
+			String idStr  = request.getParameter("id");
+			
+			List<Information> infos = idao.readAllInformation();
+			
+/* 			if("create".equals(action))
+			{
+				User user = new User(null,password,firstname,lastname,email,username,type);
+				dao.createUser(user);
+			} */
+			
+/* 			else if("delete".equals(action))
+			{
+				Integer id = Integer.parseInt(idStr);
+				dao.deleteMovie(id);
+			} */
+				
+/* 			List<Movie> movies = dao.readAllMovies(); */
+		%>
+		<h2>All Information</h2>
 		
-		<form action="User_Comment.jsp">
+		<form action="All_Information.jsp">
 		<table class="table table-striped">
 			<tr>
 				<th>Spot</th>
-				<th>Information</th>
-				<th>Comment</th>
+				<th>Type</th>
+				<th>Content</th>
 				<th>&nbsp;</th>
 			</tr>
-<!-- 			<tr>
-			can be made a downdrag rectangle
-				<td><input name="spot" class="form-control" placeholder="spot_id"
-							required autofocus/></td>
-				<td><input name="information" class="form-control" placeholder="information_id"
-							required autofocus/></td>
-				<td><input name="comment_content" class="form-control" placeholder="comment"
-							required autofocus/></td>
-			</tr> -->
 		<%
-			for(Comment comment : comments)
+			for(Information inf : infos)
 			{
 		%>	<tr>
 <%-- 				<td>
@@ -40,11 +51,30 @@
 					<%= comment.getContent() %>
 					</a>
 				</td> --%>
-				<td><%= comment.getInfo().getSpot().getLocationname() %></td>
-				<td><%= comment.getInfo().getContent() %></td>
-				<td><%= comment.getContent() %></td>
+				<td><%= inf.getSpot().getLocationname() %></td>
+				<td><%= inf.getType() %></td>
+				<%if ("V".equals(inf.getType())){
+					%>
+					<td>
+					<video width="320" height="240" autoplay>
+ 					 <source src="<%= inf.getContent() %>" type="video/mp4">
+ 					 </video>
+					</td>
+					<%  }
+				else if("P".equals(inf.getType())){
+					%>
+					<td>
+					<img src="<%= inf.getContent() %>" alt="<%= inf.getSpot().getLocationname() %>" height="240" width="320">
+					</td>
+					<%  }
+				else {
+					%>
+					<td><%= inf.getContent() %></td>
+					<% 
+				}
+				%>
 				<td>
-					<a href="User_Comment.jsp?id=<%=user.getId()%>&action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+					<a href="Make_Comment.jsp?id=<%=idStr %>&info=<%=inf.getId() %>" class="btn btn-primary">Comment</a>
 				</td>
 			</tr>
 		<%

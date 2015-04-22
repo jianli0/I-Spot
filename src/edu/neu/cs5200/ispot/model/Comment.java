@@ -46,7 +46,7 @@ public class Comment {
 		// TODO Auto-generated constructor stub
 	}
 	public Comment(Integer id, String content,
-			edu.neu.cs5200.ispot.model.User user, Information info) {
+			User user, Information info) {
 		super();
 		Id = id;
 		Content = content;

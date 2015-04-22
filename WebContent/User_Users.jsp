@@ -32,10 +32,9 @@
 		 
 		 if("delete".equals(action))
 			{	
-			 	Integer second_id = Integer.parseInt(idStr1);
-			 	System.out.println("now deleteing user"); 
-				 /* User second_user = user_dao.readUserById(second_id);
-				 user_dao.unfollowingUser(user_id, second_user); */
+			 	Integer second_id = Integer.parseInt(idStr1);	 	
+				User second_user = user_dao.readUserById(second_id);
+				user_dao.unfollowingUser(user_id, second_user); 
 			}  
 		
 		List<User> users = user.getFollowedUsers();

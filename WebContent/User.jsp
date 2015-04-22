@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="User_Spot.jsp?id=<%=user.getId()%>">
+                        <a data-toggle="tab" href="All_Spots.jsp?id=<%=user.getId()%>">
                             <span class="glyphicon glyphicon-home"></span>
                         </a>
                     </li>

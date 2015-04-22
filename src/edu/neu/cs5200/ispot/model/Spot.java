@@ -52,4 +52,12 @@ public class Spot {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public int getUserIndex(User user){
+		int i = 0;
+		for (i=0;i<this.users.size(); i++){
+		if(this.users.get(i).getId()==user.getId())
+		break;}
+		return i;
+
+		}
 }
