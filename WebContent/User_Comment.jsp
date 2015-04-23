@@ -22,31 +22,18 @@
 		CommentDAO comment_dao = new CommentDAO();
 		InformationDAO info_dao = new InformationDAO();
 		
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
-		
+		Integer id = (Integer)session.getAttribute("user_id");
 		String idStr1 = request.getParameter("commentid");		
-		User user = user_dao.readUserById(user_id); 
+		User user = user_dao.readUserById(id); 
 	
  		String action = request.getParameter("action");
- 		
-/*  		String spot = request.getParameter("comment");
- 		String information = request.getParameter("information");
- 		String comment_content  = request.getParameter("comment_content"); */
- 	
- 		/* 	
- 		Integer new_spot_id = Integer.parseInt(spot);
- 		Integer new_info_id = Integer.parseInt(information);
-		 */
 		 
 	 if("delete".equals(action))
 			{
 				
 				Integer comment_id = Integer.parseInt(idStr1);
 				comment_dao.deleteComment(comment_id);
-				%>
-				<%-- <script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script> --%>
-				<% 
+				response.setHeader("refresh","0.5;URL=User_Comment.jsp"); 
 			} 
 		
 		List<Comment> comments = user.getComments();
@@ -65,15 +52,6 @@
 				<th>Comment</th>
 				<th>&nbsp;</th>
 			</tr>
-<!-- 			<tr>
-			can be made a downdrag rectangle
-				<td><input name="spot" class="form-control" placeholder="spot_id"
-							required autofocus/></td>
-				<td><input name="information" class="form-control" placeholder="information_id"
-							required autofocus/></td>
-				<td><input name="comment_content" class="form-control" placeholder="comment"
-							required autofocus/></td>
-			</tr> -->
 		<%
 			for(Comment comment : comments)
 			{
@@ -84,10 +62,29 @@
 					</a>
 				</td> --%>
 				<td><%= comment.getInfo().getSpot().getLocationname() %></td>
-				<td><%= comment.getInfo().getContent() %></td>
+				<%if ("V".equals(comment.getInfo().getType())){
+					%>
+					<td>
+					<video width="320" height="240" autoplay>
+ 					 <source src="<%= comment.getInfo().getContent() %>" type="video/mp4">
+ 					 </video>
+					</td>
+					<%  }
+				else if("P".equals(comment.getInfo().getType())){
+					%>
+					<td>
+					<img src="<%= comment.getInfo().getContent() %>" alt="<%= comment.getInfo().getSpot().getLocationname() %>" height="240" width="320">
+					</td>
+					<%  }
+				else {
+					%>
+					<td><%= comment.getInfo().getContent() %></td>
+					<% 
+				}
+				%>
 				<td><%= comment.getContent() %></td>
 				<td>
-					<a href="User_Comment.jsp?id=<%=user.getId()%>&action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+					<a href="User_Comment.jsp?action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
 				</td>
 			</tr>
 		<%

@@ -1,5 +1,4 @@
 package edu.neu.cs5200.ispot.model;
-
 import java.util.List;
 
 import javax.persistence.*;
@@ -11,6 +10,12 @@ import javax.persistence.*;
 @DiscriminatorColumn(name="Type")
 public class User {
 
+	@Override
+	public String toString() {
+		return "User [Id=" + Id + ", Password=" + Password + ", Firstname="
+				+ Firstname + ", Lastname=" + Lastname + ", Email=" + Email
+				+ ", Username=" + Username + ", Type=" + Type + "]";
+	}
 	public String getType() {
 		return Type;
 	}
@@ -35,8 +40,7 @@ public class User {
 			joinColumns=
             @JoinColumn(name="User"),
        inverseJoinColumns=
-            @JoinColumn(name="Spot")
-	)
+            @JoinColumn(name="Spot"))
 	protected List<Spot> spots;
 	
 	//UsershareInformation
@@ -103,14 +107,6 @@ public class User {
 	public String getLastname() {
 		return Lastname;
 	}
-	
-	@Override
-	public String toString() {
-		return "User [spots=" + spots + ", informations=" + informations
-				+ ", followedUsers=" + followedUsers + ", followingUsers="
-				+ followingUsers + ", comments=" + comments + "]";
-	}
-	
 	public void setLastname(String lastname) {
 		Lastname = lastname;
 	}
@@ -164,37 +160,46 @@ public class User {
 		return comments;
 	}
 	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+		this.comments = comments;}
 	
-
-
 	public boolean IsSubed (Spot spot){
-	boolean value= false;
-	for(Spot s : this.spots){
-	if(s.getId()==spot.getId())
-	value=true;
-	}
-	return value;
+		boolean value= false;
+		for(Spot s : this.spots){
+			if(s.getId()==spot.getId())
+				value=true;
+		 }
+		return value;
 	}
 	
-	public int getSpotIndex(Spot spot){
+	public boolean IsFollowed (User followed){
+		boolean value= false;
+		for(User u : this.followedUsers){
+			if(u.equals(followed))
+				value=true;
+		 }
+		return value;
+	}
+	
+	public int getSpotIndex( Spot spot){
 		int i;
 		for (i=0;i<this.spots.size(); i++){
-		if(this.spots.get(i).getId()==spot.getId())
-		break;}
+			if(this.spots.get(i).getId()==spot.getId())
+				break;}
 		return i;
-		}
+	}
 	
-	public int getUserIndex(User user){
-		int i;
-		for (i=0;i<this.followedUsers.size(); i++){
-		if(this.followedUsers.get(i).getId()==user.getId())
-		break;}
-		return i;
+	public void unfollowUser(User followed)
+	{
+		if(this.followedUsers.contains(followed)){
+			this.followedUsers.remove(followed);
 		}
+	}
 
-
-
-
+	public void followUser(User followed){
+		this.followedUsers.add(followed);
+	}
+	
+	
+	
+	
 }

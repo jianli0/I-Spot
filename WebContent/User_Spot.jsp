@@ -21,12 +21,11 @@
 		UserDAO user_dao = new UserDAO();
  		SpotDAO spot_dao = new SpotDAO();
 
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
+ 		Integer id = (Integer)session.getAttribute("user_id");
 		String action = request.getParameter("action");
 		
  		String idStr1 = request.getParameter("spotid");
-		User user = user_dao.readUserById(user_id);  
+		User user = user_dao.readUserById(id);  
 	
  		
  		
@@ -44,7 +43,7 @@
 			{
 				List<Spot> spots = user.getSpots();
 				Integer spot_id = Integer.parseInt(idStr1);
-				user_dao.unsubscribeSpot(user_id, spot_dao.readSpotById(spot_id));
+				user_dao.unsubscribeSpot(id, spot_dao.readSpotById(spot_id));
 				%>
 				<%-- <script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script> --%>
 				<% 

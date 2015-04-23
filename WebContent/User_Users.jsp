@@ -20,21 +20,20 @@
 	<%
 		UserDAO user_dao = new UserDAO();
 		
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
+		Integer id = (Integer)session.getAttribute("user_id");
 		
-		String idStr1 = request.getParameter("uid");
-		User user = user_dao.readUserById(user_id); 
-		
+		String idStr1 = request.getParameter("uid");	
+		User user = user_dao.readUserById(id); 
  		String action = request.getParameter("action");
  		
  		
 		 
-		 if("delete".equals(action))
+		 if("unfollow".equals(action))
 			{	
 			 	Integer second_id = Integer.parseInt(idStr1);	 	
 				User second_user = user_dao.readUserById(second_id);
-				user_dao.unfollowingUser(user_id, second_user); 
+				user_dao.unfollowUser(id, second_user); 
+				
 			}  
 		
 		List<User> users = user.getFollowedUsers();
@@ -59,7 +58,7 @@
 				<td><%= u.getFirstname()%></td>
 				<td><%= u.getLastname()%></td>
 				<td>
-					<a href="User_User.jsp?id=<%=user.getId()%>&action=delete&uid=<%= u.getId() %>" class="btn btn-danger">UnFollow</a>
+					<a href="User_Users.jsp?action=unfollow&uid=<%= u.getId() %>" class="btn btn-danger">UnFollow</a>
 				</td>
 			</tr>
 		<%

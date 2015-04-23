@@ -20,6 +20,11 @@
 	<%
 		CommentDAO comment_dao = new CommentDAO();
 		InformationDAO info_dao = new InformationDAO();
+		UserDAO udao = new UserDAO();
+		
+		Integer id =(Integer)session.getAttribute("user_id");
+		User user = udao.readUserById(id);
+		
 		
 		String idStr1 = request.getParameter("commentid");		
  		String action = request.getParameter("action");
@@ -29,8 +34,9 @@
 				
 				Integer comment_id = Integer.parseInt(idStr1);
 				comment_dao.deleteComment(comment_id);
+				
 				%>
-				<%-- <script>window.location= "User_Comment.jsp?id=<%= user.getId() %>";</script> --%>
+				<script>window.location= "All_Comment.jsp";</script> 
 				<% 
 			} 
 		
@@ -55,11 +61,35 @@
 			{
 		%>	<tr>
 				<td><%= comment.getInfo().getSpot().getLocationname() %></td>
-				<td><%= comment.getInfo().getContent() %></td>
+				<%if ("V".equals(comment.getInfo().getType())){
+					%>
+					<td>
+					<video width="320" height="240" autoplay>
+ 					 <source src="<%= comment.getInfo().getContent() %>" type="video/mp4">
+ 					 </video>
+					</td>
+					<%  }
+				else if("P".equals(comment.getInfo().getType())){
+					%>
+					<td>
+					<img src="<%= comment.getInfo().getContent() %>" alt="<%= comment.getInfo().getSpot().getLocationname() %>" height="240" width="320">
+					</td>
+					<%  }
+				else {
+					%>
+					<td><%= comment.getInfo().getContent() %></td>
+					<% 
+				}
+				%>
 				<td><%= comment.getContent() %></td>
+				<% if("A".equals(user.getType()))
+				{%>
 				<td>
-					<a href="User_Comment.jsp?action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
+					<a href="All_Comment.jsp?action=delete&commentid=<%= comment.getId() %>" class="btn btn-danger">Delete</a>
 				</td>
+				<%
+				}
+				%>
 			</tr>
 		<%
 			}

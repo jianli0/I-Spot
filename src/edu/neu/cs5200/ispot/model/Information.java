@@ -69,12 +69,13 @@ public class Information {
 	public void setSpot(Spot spot) {
 		this.spot = spot;
 	}
-	public Information(Integer id, String content) {
+	public Information(Integer id, Spot spot, String content, String type) {
 		super();
 		this.id = id;
+		this.spot = spot;
 		this.content = content;
-	  
-	}
+		    this.Type = type;
+		}
 	public Information() {
 		super();
 		// TODO Auto-generated constructor stub

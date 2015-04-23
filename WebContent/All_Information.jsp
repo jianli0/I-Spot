@@ -14,7 +14,8 @@
 	
 	<%
 			InformationDAO idao = new InformationDAO();
-			String idStr  = request.getParameter("id");
+			Integer id =(Integer)session.getAttribute("user_id");
+
 			
 			List<Information> infos = idao.readAllInformation();
 			
@@ -74,7 +75,7 @@
 				}
 				%>
 				<td>
-					<a href="Make_Comment.jsp?id=<%=idStr %>&info=<%=inf.getId() %>" class="btn btn-primary">Comment</a>
+					<a href="Make_Comment.jsp?info=<%=inf.getId() %>" class="btn btn-primary">Comment</a>
 				</td>
 			</tr>
 		<%

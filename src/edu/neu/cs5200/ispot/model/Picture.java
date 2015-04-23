@@ -12,8 +12,8 @@ public class Picture extends Information {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Picture(Integer id, String content) {
-		super(id, content);
+	public Picture(Integer id, Spot spot, String content, String type) {
+		super(id, spot, content, "P");
 		// TODO Auto-generated constructor stub
 	}
 

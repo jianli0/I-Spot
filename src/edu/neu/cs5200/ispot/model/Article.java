@@ -12,8 +12,8 @@ public class Article extends Information {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(Integer id, String content) {
-		super(id, content);
+	public Article(Integer id, Spot spot, String content, String type) {
+		super(id, spot, content, "A");
 		// TODO Auto-generated constructor stub
 	}
 

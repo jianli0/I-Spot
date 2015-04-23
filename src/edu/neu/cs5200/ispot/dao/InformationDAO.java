@@ -68,10 +68,10 @@ public class InformationDAO {
 	}
 	
 	public static void main(String[] args) {
-	  InformationDAO dao = new InformationDAO();
-	  Picture p = new Picture(null,"picture");
-	  //Video info2 = new Video(null,"video","V");
-	  dao.createInformation(p);
+//	  InformationDAO dao = new InformationDAO();
+//	  Picture p = new Picture(null,"picture");
+//	  //Video info2 = new Video(null,"video","V");
+//	  dao.createInformation(p);
 
 	}
 	

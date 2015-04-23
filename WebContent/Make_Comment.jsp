@@ -16,20 +16,20 @@
 			UserDAO udao = new UserDAO();
 			InformationDAO idao = new InformationDAO();
 		
+			Integer id =(Integer)session.getAttribute("user_id");
 			String action = request.getParameter("action");
-			String idStr  = request.getParameter("id");
 			String idStr1  = request.getParameter("info");
-			String comment   = request.getParameter("comment");
 			
-					
+						
 			if("create".equals(action))
 			{
-				Integer id = Integer.parseInt(idStr);
+				String comment   = request.getParameter("comment");
 				Integer info_id = Integer.parseInt(idStr1);
 				User u = udao.readUserById(id);
 				Information i =idao.readInformationById(info_id);
 				Comment c = new Comment(null, comment, u,i);
 				dao.createComment(c);
+				response.setHeader("refresh","0.5;URL=All_Comment.jsp");
 			}
 			
 		%>
@@ -37,6 +37,7 @@
                  <h4>Leave a Comment:</h4>
                  <form action = "Make_Comment.jsp">
                      <div class="form-group">
+                    	 <input type="hidden"  name="info" class="form-control" value="<%=idStr1 %>" ></input>
                          <input name="comment" class="form-control" rows="3"></input>
                      </div>
                      <button type="submit" class="btn btn-primary" name="action" value="create">Submit</button>

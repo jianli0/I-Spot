@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="edu.neu.cs5200.ispot.dao.*, 
-	edu.neu.cs5200.ispot.model.*,java.util.*"%>
+    pageEncoding="UTF-8"
+        import="edu.neu.cs5200.ispot.dao.*,edu.neu.cs5200.ispot.model.*,java.util.*"
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -164,15 +165,22 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
   <body>
     <h1>Spots</h1>
-    <div class="container">
-	<form action="/MyProject/SpotSearchResult.jsp">
-		Enter your search text: <input type="text" id="searchtext" name="q">
-		&nbsp; <input onclick="myFunction()" type="submit" value="Search It" />
+                <div class="well">
+                    <h4>Spot Search</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchtext" name="q">
+                        <span class="input-group-btn">
+                            <button onclick="myFunction()" type="submit" value="Search It">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                    </div>	
+	
 	</form>
 	<script>
 		function myFunction() {
 			var search = document.getElementById("searchtext").value;
-			window.location = '/MyProject/SpotSearchResult.jsp?q=' + search;
+			window.location = 'SpotSearchResult.jsp?q=' + search;
 			;
 		}
 	</script>
@@ -185,8 +193,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		<%
 		UserDAO user_dao = new UserDAO();
  		SpotDAO spot_dao = new SpotDAO();
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
+		Integer user_id = (Integer)session.getAttribute("user_id");
 		String action = request.getParameter("action");	
 		User user = user_dao.readUserById(user_id);  
 
@@ -205,17 +212,27 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		 	Spot spot = spot_dao.readSpotById(spot_id);
 			user_dao.unsubscribeSpot(user_id, spot);
 		} 
-		 List<Spot> spots = spot_dao.readAllSpots();
+		 
+		else if("upload".equals(action))
+		{
+		  	String idStr1 = request.getParameter("spotid");
+		  	%>
+				<script>window.location= "Upload.jsp?spot_id=<%=idStr1 %>";</script>
+			<% 
+		  }
+
+		List<Spot> spots = spot_dao.readAllSpots();
 		%>	
 		 <h1>
 		 Spots
 		 </h1>
-		 <a href="All_Spots_Create.jsp?id=<%=user.getId()%>"class="btn btn-lg btn-primary">Create</a>
+		 <a href="All_Spots_Create.jsp?id=<%=user.getId()%>"class="btn btn-lg btn-primary">Create My Spot</a>
 		 <form action="All_Spots_Create.jsp">
 		 <table class="table table-striped"> 
 		   <tr>
 		     			<th>locationName</th>
 						<th>address</th>
+						<th>&nbsp;</th>
 						<th>&nbsp;</th>
 		   </tr>				
 	<%  
@@ -229,13 +246,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<td><%=spot.getAdress()%></td>
 	<td>
 	<% if (user.IsSubed(spot)){
-	%><a href="All_Spots.jsp?id=<%=user.getId()%>&action=unsubscribe&spotid=<%=spot.getId()%>"class="btn btn-danger">UnSubscribe</a>
+	%><a href="All_Spots.jsp?&action=unsubscribe&spotid=<%=spot.getId()%>"class="btn btn-danger">UnSubscribe</a>
 	<% } 
 	else{ 
 		%><a href="All_Spots.jsp?id=<%=user.getId()%>&action=subscribe&spotid=<%=spot.getId()%>"class="btn btn-success">Subscribe</a>
 		<% 
 	}%>
 	</td>
+  	<td>
+  	<a href="All_Spots.jsp?action=upload&spotid=<%=spot.getId()%>" class="btn btn-primary">UpLoad</a>
+  	</td>
+
   </tr>	
 <% } 
 

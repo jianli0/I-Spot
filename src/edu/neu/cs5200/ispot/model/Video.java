@@ -12,8 +12,8 @@ public class Video extends Information {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Video(Integer id, String content) {
-		super(id, content);
+	public Video(Integer id, Spot spot, String content, String type) {
+		super(id, spot, content, "V");
 		// TODO Auto-generated constructor stub
 	}
 

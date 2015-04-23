@@ -1,7 +1,6 @@
 package edu.neu.cs5200.ispot.dao;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -49,16 +48,23 @@ public class SpotDAO {
 		em.remove(spot);
 		em.getTransaction().commit();
 	}	
+    public List<Spot> readSpotByAdd(String addr){
+    	Query query = em.createQuery("select spot from Spot spot where spot.Adress=:arg1");
+    	query.setParameter("arg1", addr);
+    	return (List<Spot>)query.getResultList();
+    	 }
+ 
+    public static void main(String[] args) {
+		SpotDAO dao =  new SpotDAO();
+        Spot spot = new Spot(null,"Rockefeller Cente","30 Rockefeller Center, New York");
+		dao.createSpot(spot);
+		
+		System.out.println("--------readbyaddress--------");
+		List<Spot> spots = dao.readSpotByAdd("360 Huntington Ave, Boston");
+		for (Spot s: spots){
+			System.out.println(s.getId());
+		}
+  }
+ }
 
 
-
-
-
-
-
-
-
-
-
-
-}

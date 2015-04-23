@@ -15,28 +15,21 @@
 		<%
 			UserDAO dao = new UserDAO();
 		
-			String action = request.getParameter("action");
-			
+			String action = request.getParameter("action");	
 			String username  = request.getParameter("username");
 			String password  = request.getParameter("password");
 			String firstname   = request.getParameter("firstname");
 			String lastname   = request.getParameter("lastname");
 			String email   = request.getParameter("email");
-			String type   = request.getParameter("type");
 			
-			if("create".equals(action))
+			if("create".equals(action) 
+					&& !(password==null || "".equals(password))
+					&& !(username==null || "".equals(username)))
 			{
-				User user = new User(null,password,firstname,lastname,email,username,type);
+				User user = new User(null,password,firstname,lastname,email,username,"E");
 				dao.createUser(user);
+				response.setHeader("refresh","0.2;URL=SignIn.jsp");
 			}
-			
-/* 			else if("delete".equals(action))
-			{
-				Integer id = Integer.parseInt(idStr);
-				dao.deleteMovie(id);
-			} */
-				
-/* 			List<Movie> movies = dao.readAllMovies(); */
 		%>
 
     <div class="row">
@@ -48,19 +41,14 @@
                 <form class="form-signin" action="Register.jsp">
                 
                 <input name="username" class="form-control" placeholder="Username" required autofocus>
-                <input name="password" class="form-control" placeholder="Password" required>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <input name="firstname" class="form-control" placeholder="Firstname" required>
                 <input name="lastname" class="form-control" placeholder="Lastname" required>
-                <input name="email" class="form-control" placeholder="Email" required>             
-                <input name="type" class="form-control" placeholder="Type" required>
-                
-                
+                <input name="email" class="form-control" placeholder="Email" required>                 
                 <!-- onClick="location.href='readAllUsers.jsp'" -->
                 <button class="btn btn-lg btn-primary btn-block" 
                 type="submit" name="action" value="create">
                     Register</button> 
-<!--                    <a href="readAllUsers.jsp" class="btn btn-lg btn-primary btn-block" type="submit" name="action"
-                     value="create" role="button">Register</a> -->
                 </form>
             </div>
             <a href="SignIn.jsp" class="text-center new-account">Already Registered</a>

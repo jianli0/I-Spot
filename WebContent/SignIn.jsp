@@ -12,14 +12,8 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="style.css">
-	
-	
 </head>
 <body>
-
-
-
-
 	<div class="container">
 
 		<%
@@ -34,12 +28,16 @@
 
 			if ("signin".equals(action)) {
 				for (User user : users) {
+					if(!(username==null || "".equals(username)||password==null||"".equals(password)))
+					{
 					if (user.getUsername().equals(username)
 							&& user.getPassword().equals(password)) {
-		%>
- 							<script>window.location= "User.jsp?id=<%= user.getId() %>";</script>
-		<%
+							session.setAttribute("user_id", user.getId());
+							%>
+ 							<script>window.location= "User.jsp";</script>
+							<%
 							break;
+						}
 					}
 				}
 			}
@@ -56,7 +54,8 @@
 
 					<form class="form-signin" action="SignIn.jsp">
 						<input name="username" class="form-control" placeholder="Username"
-							required autofocus> <input type="password"
+							required autofocus> 
+							<input type="password"
 							name="password" class="form-control" placeholder="Password"
 							required>
 						<button id="1" class="btn btn-lg btn-primary btn-block"

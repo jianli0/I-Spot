@@ -20,22 +20,35 @@
 	<%
 		UserDAO user_dao = new UserDAO();
 		
-		String idStr = request.getParameter("id");
-		Integer user_id = Integer.parseInt(idStr);
-		
-		
+		Integer user_id = (Integer)session.getAttribute("user_id");
 		User user = user_dao.readUserById(user_id); 
 		
 	
  		String action = request.getParameter("action");
+ 		String idStr1 = request.getParameter("uid");
+		
 		
 		 if("follow".equals(action))
 			{
-			 String idStr1 = request.getParameter("uid");
 			 Integer second_id = Integer.parseInt(idStr1);
 			 User second_user = user_dao.readUserById(second_id);
 			 user_dao.followingUser(user_id,second_user);
+			 %>
+				<script>window.location= "All_User.jsp";</script>
+			<% 
 			}  
+		 else if("delete".equals(action) && ("A".equals(user.getType()))){
+			 Integer second_id = Integer.parseInt(idStr1);
+			 user_dao.deleteUser(second_id);
+			 %>
+				<script>window.location= "All_User.jsp";</script>
+			<% 
+			 }
+		 else if("unfollow".equals(action)){
+			Integer second_id = Integer.parseInt(idStr1);
+			User second_user = user_dao.readUserById(second_id);
+			user_dao.unfollowUser(user_id, second_user); 
+		 }
 		
 		List<User> users = user_dao.readAllUsers();
 	%>
@@ -59,13 +72,14 @@
 				<td><%= u.getFirstname()%></td>
 				<td><%= u.getLastname()%></td>
 				<td>
-					<a href="All_User.jsp?id=<%=user.getId()%>&action=follow&uid=<%= u.getId() %>" class="btn btn-primary">Follow</a>
+				<% %>
+					<a href="All_User.jsp?action=follow&uid=<%= u.getId() %>" class="btn btn-success">Follow</a>
 				</td>
 			<%if ("A".equals(user.getType()))
 					{ %>
 				
 				<td>
-					<a href="All_User.jsp?id=<%=user.getId()%>&action=delete&uid=<%= u.getId() %>" class="btn btn-danger">Delete</a>
+					<a href="All_User.jsp?action=delete&uid=<%= u.getId() %>" class="btn btn-danger">Delete</a>
 				</td>
 				</tr>
 				<% }
