@@ -199,7 +199,17 @@ public class User {
 		this.followedUsers.add(followed);
 	}
 	
+	public void unsubscribe(Spot spot)
+	{
+		if(this.spots.contains(spot)){
+			this.spots.remove(spot);
+		}
+	}
 	
-	
-	
+	public void subscribe(Spot spot)
+	{
+		
+			this.spots.add(spot);
+		
+	}
 }
