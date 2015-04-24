@@ -14,7 +14,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container">
+
+    <!-- Callout -->
+    <aside class="callout"> 
+            <div class="container">
 
 		<%
 			UserDAO dao = new UserDAO();
@@ -67,6 +70,9 @@
 			</div>
 		</div>
 	</div>
+    </aside>
+    
+	
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -1,80 +1,187 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="edu.neu.cs5200.ispot.dao.*,edu.neu.cs5200.ispot.model.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+    pageEncoding="UTF-8"
+        import="edu.neu.cs5200.ispot.dao.*,edu.neu.cs5200.ispot.model.*,java.util.*"
+    %>
+    
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spot</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href = "main.css">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Stylish Portfolio - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
+
 <body>
-	<div="container">
-		<%
+	<%
 			Integer id = (Integer)session.getAttribute("user_id");
 			UserDAO dao = new UserDAO();
 			User u1 = dao.readUserById(id);
 		%>
-	<header>
-	<span class="label label-default"></span>
-    <a href="User_Myprofile.jsp" class="btn btn-primary">
-    <img class="profile-img"
-	src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-		alt=""></a>
-	<li>
-	<h1>	 <% out.println(u1.getUsername()); %>	</h1>
-	<a href="Signout.jsp" class="btn btn-danger">Sign Out</a>
-	</li>
-		
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="All_Spots.jsp">All Spots</a>
-			</div>
 
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="All_Information.jsp">All Information</a></li>
-					<li><a href="All_Comment.jsp">All Comments</a></li>
-					<li><a href="All_User.jsp" class="btn btn-danger">All Users</a></li>					
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="User_Myprofile.jsp">Account Settings</a></li>
-							<li><a href="User_Spot.jsp"> My Spots</a></li>
-							<li><a href="User_Information.jsp">My Information</a></li>
-							<li><a href="User_Comment.jsp">My Comments</li>
-							<li><a href="User_Users.jsp">My Follow Users</li>
-							<li><a href="#">Separated link</a></li>
-							<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
-				</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
-			</div>
-		</div>
-	 </nav>
-	</div>
-</header>
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="Signout.jsp"  onclick = $("#menu-close").click(); >Sign Out</a>
+            </li>
+            <li>
+                <a href="User_Myprofile.jsp" onclick = $("#menu-close").click(); >My Profile</a>
+            </li>
+           
+            <li>
+                <a href="User_Spot.jsp" onclick = $("#menu-close").click(); >My Spots</a>
+            </li>
+            <li>
+                <a href="User_Information.jsp" onclick = $("#menu-close").click(); >My Information</a>
+            </li>
+            <li>
+                <a href="User_Comment.jsp" onclick = $("#menu-close").click(); >My Comments</a>
+            </li>
+            <li>
+                <a href="User_Users.jsp" onclick = $("#menu-close").click(); >My Follow Users</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2><% out.println(u1.getUsername()); %></h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>All Spots</strong>
+                                </h4>
+                                <p>Find Out All Spots</p>
+                                <a href="All_Spots.jsp" class="btn btn-light">Explore Now</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>All Information</strong>
+                                </h4>
+                                <p>Find Out All Information</p>
+                                <a href="All_Information.jsp" class="btn btn-light">Explore Now</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>All Comments</strong>
+                                </h4>
+                                <p>Find Out All Comments</p>
+                                <a href="All_Comment.jsp" class="btn btn-light">Explore Now</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>All Users</strong>
+                                </h4>
+                                <p>Find Out All Users</p>
+                                <a href="All_User.jsp" class="btn btn-light">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+        <!-- Callout -->
+    <aside class="callout">
+        <div class="text-vertical-center">
+            <h1>Explore Excitment</h1>
+        </div>
+    </aside>
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
+    
 </body>
 
 </html>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
