@@ -72,12 +72,19 @@ public class UserDAO {
 		//unsubscribe
 		public List<Spot> unsubscribeSpot(Integer id, Spot spot){
 			em.getTransaction().begin();
-			User user = em.find(User.class,id);
-			user.unsubscribe(spot);
-		    em.getTransaction().commit();
+			    UserDAO dao = new UserDAO();
+			User user = dao.readUserById(id);
+//				List<User> users = spot.getUsers();
+//				List<Spot> spots = user.getSpots();
+			    int userid=spot.getUserIndex(user);
+			int spotid=user.getSpotIndex(spot);
+			    spot.getUsers().remove(userid);
+			user.getSpots().remove(spotid);
+			em.merge(user);
+			em.merge(spot);
+			em.getTransaction().commit();
 			return user.getSpots();
-
-		}
+			}
 		
 
        // user share information	

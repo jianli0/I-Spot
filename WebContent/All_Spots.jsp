@@ -33,7 +33,34 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
-  
+ 
+  function handleSearchResults(results, status)
+  {
+  	console.log(results);
+  	 for(var i=0; i< results.length; i++)
+  	{    console.log(results[i].vicinity);	
+  		  var adr = JSON.stringify(results[i].vicinity); 
+  	      var marker = new google.maps.Marker({
+  	    	    position: results[i].geometry.location,
+  	    	    map: map
+  		 }); 
+  		 var content = "<a href=Map.jsp?address="+adr+" class=list-group-item active>"+results[i].name+"</a>";
+ 
+  		 $("#around").append(content);
+  	
+  	
+  	} 
+  }
+
+  // Search
+  function performSearch()
+  {
+  	var request = {
+  			bounds: map.getBounds(),
+  			type: ["establishment","history"]
+  	}
+  	service.nearbySearch(request, handleSearchResults);
+  }
   
 
 
@@ -263,5 +290,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 %>
 	</table>
 	</form>
+	 <h1>Your Around Spots</h1>
+	 <div class="list-group" id="around"></div>
   </body>
 </html>

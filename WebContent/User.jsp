@@ -55,7 +55,7 @@
             </li>
            
             <li>
-                <a href="User_Spot.jsp" onclick = $("#menu-close").click(); >My Spots</a>
+                <a href="All_Spots.jsp" onclick = $("#menu-close").click(); >My Spots</a>
             </li>
             <li>
                 <a href="User_Information.jsp" onclick = $("#menu-close").click(); >My Information</a>
