@@ -201,7 +201,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     <div class="input-group">
                         <input type="text" class="form-control" id="searchtext" name="q">
                         <span class="input-group-btn">
-                            <button onclick="myFunction()" type="submit" value="Search It">
+                            <button  class="btn btn-primary" onclick="myFunction()" type="submit" value="Search It">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>
@@ -251,15 +251,28 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<script>window.location= "Upload.jsp?spot_id=<%=idStr1 %>";</script>
 			<% 
 		  }
+		else if("create".equals(action))
+		{
+			String locationname= request.getParameter("locationname");
+			String address = request.getParameter("address");
+			
+			Spot spot = new Spot(null,locationname,address);
+			spot_dao.createSpot(spot);
+		}
 
 		List<Spot> spots = spot_dao.readAllSpots();
 		%>	
-		 <h1>
-		 Spots
-		 </h1>
-		 <a href="All_Spots_Create.jsp?id=<%=user.getId()%>"class="btn btn-lg btn-primary">Create My Spot</a>
-		 <form action="All_Spots_Create.jsp">
+		 
+		 
+		 <form action="All_Spots.jsp">
 		 <table class="table table-striped"> 
+		 <tr>
+				<td><input name="locationname" class="form-control" placeholder="LocationName"/></td>
+				<td><input name="address" class="form-control" placeholder="Address"/></td>
+				<td>
+					<button class="btn btn-primary" type="submit" name="action" value="create">Create</button>
+				</td>
+			</tr>	
 		   <tr>
 		     			<th>locationName</th>
 						<th>address</th>

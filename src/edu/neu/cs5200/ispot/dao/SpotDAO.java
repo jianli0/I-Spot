@@ -60,9 +60,9 @@ public class SpotDAO {
 		dao.createSpot(spot);
 		
 		System.out.println("--------readbyaddress--------");
-		List<Spot> spots = dao.readSpotByAdd("360 Huntington Ave, Boston");
+		List<Spot> spots = dao.readSpotByAdd("malden 160");
 		for (Spot s: spots){
-			System.out.println(s.getId());
+			System.out.println(s);
 		}
   }
  }

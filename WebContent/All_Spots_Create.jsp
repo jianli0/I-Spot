@@ -203,6 +203,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		 </h1>
 		 <form action="All_Spots_Create.jsp">
 		 <table class="table table-striped"> 
+		 	
 		   <tr>
 		     			<th>locationName</th>
 						<th>address</th>
@@ -214,7 +215,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<td>
 					<button class="btn btn-primary" type="submit" name="action" value="create">Create</button>
 				</td>
-			</tr>	
+				<td>&nbsp;</td>
+			</tr>
+		   
 		   		
 	<%  
 		for (Spot spot : spots)

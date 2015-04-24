@@ -20,6 +20,7 @@
 	<script console.log(<%=address%>)></script>
 	<% 
 	SpotDAO dao =new SpotDAO();
+	
 	List<Spot> spots = dao.readSpotByAdd(address);
 	
 	for(Spot spot : spots)

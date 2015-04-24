@@ -75,7 +75,7 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-10 col-lg-offset-1">
-                    <h2><% out.println(u1.getUsername()); %></h2>
+                    <h2><% out.println("Welcome" + "  "+ u1.getUsername()); %></h2>
                     <hr class="small">
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
