@@ -141,6 +141,10 @@ function initialize() {
     	}); 
       
       service = new google.maps.places.PlacesService(map);
+      
+      google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
+
+      $('#refresh').click(performSearch);
             
       //traffic
       var trafficLayer = new google.maps.TrafficLayer();
