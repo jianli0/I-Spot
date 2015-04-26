@@ -48,11 +48,12 @@ public class SpotDAO {
 		em.remove(spot);
 		em.getTransaction().commit();
 	}	
-    public List<Spot> readSpotByAdd(String addr){
-    	Query query = em.createQuery("select spot from Spot spot where spot.Adress=:arg1");
-    	query.setParameter("arg1", addr);
-    	return (List<Spot>)query.getResultList();
-    	 }
+	
+	public List<Spot> readSpotByAdd(String addr){
+	    Query query = em.createQuery("select spot from Spot spot where spot.Adress Like :arg1");
+	    query.setParameter("arg1", "%"+addr+"%");
+	    return (List<Spot>)query.getResultList();
+	    	}
  
     public static void main(String[] args) {
 		SpotDAO dao =  new SpotDAO();

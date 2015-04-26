@@ -59,6 +59,7 @@
 					<td>
 					<video width="320" height="240" autoplay>
  					 <source src="<%= inf.getContent() %>" type="video/mp4">
+ 					 <source src="movie.ogg" type="video/ogg">
  					 </video>
 					</td>
 					<%  }

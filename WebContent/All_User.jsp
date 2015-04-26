@@ -72,8 +72,13 @@
 				<td><%= u.getFirstname()%></td>
 				<td><%= u.getLastname()%></td>
 				<td>
-				<% %>
+				<%if(user.getFollowedUsers().contains(u)){
+					%><a href="All_User.jsp?action=unfollow&uid=<%= u.getId() %>" class="btn btn-warning">UnFollow</a>
+					<%
+				}
+				else{%>
 					<a href="All_User.jsp?action=follow&uid=<%= u.getId() %>" class="btn btn-success">Follow</a>
+					<% }%>
 				</td>
 			<%if ("A".equals(user.getType()))
 					{ %>

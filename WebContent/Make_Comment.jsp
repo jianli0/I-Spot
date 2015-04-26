@@ -27,7 +27,7 @@
 				Integer info_id = Integer.parseInt(idStr1);
 				User u = udao.readUserById(id);
 				Information i =idao.readInformationById(info_id);
-				Comment c = new Comment(null, comment, u,i);
+				Comment c = new Comment(null, comment,u,i);
 				dao.createComment(c);
 				response.setHeader("refresh","0.5;URL=All_Comment.jsp");
 			}

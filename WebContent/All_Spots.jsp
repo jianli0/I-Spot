@@ -34,23 +34,26 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
  
+
   function handleSearchResults(results, status)
-  {
-  	console.log(results);
-  	 for(var i=0; i< results.length; i++)
-  	{    console.log(results[i].vicinity);	
-  		  var adr = JSON.stringify(results[i].vicinity); 
-  	      var marker = new google.maps.Marker({
-  	    	    position: results[i].geometry.location,
-  	    	    map: map
-  		 }); 
-  		 var content = "<a href=Map.jsp?address="+adr+" class=list-group-item active>"+results[i].name+"</a>";
- 
-  		 $("#around").append(content);
-  	
-  	
-  	} 
-  }
+    {
+    console.log(results);
+    	for(var i=0; i< results.length; i++)
+    {    console.log(results[i].vicinity);	
+      var adr = results[i].vicinity; 
+      var newString = adr.replace(/\s+/g,"");
+      var marker = new google.maps.Marker({
+            position: results[i].geometry.location,
+            map: map
+    	}); 
+    	var content = "<a href=Map.jsp?address="+newString+" class=list-group-item active>"+results[i].name+"</a>";
+    	 	console.log(content);
+
+    	$("#around").append(content);
+    	
+    	
+    } 
+    }
 
   // Search
   function performSearch()
@@ -259,6 +262,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			Spot spot = new Spot(null,locationname,address);
 			spot_dao.createSpot(spot);
 		}
+		else if("delete".equals(action))
+		{
+			String idStr1 = request.getParameter("spotid");	
+			Integer spot_id = Integer.parseInt(idStr1);	
+			spot_dao.deleteSpot(spot_id);
+
+		}
 
 		List<Spot> spots = spot_dao.readAllSpots();
 		%>	
@@ -300,9 +310,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
   	<td>
   	<a href="All_Spots.jsp?action=upload&spotid=<%=spot.getId()%>" class="btn btn-primary">UpLoad</a>
   	</td>
-
+  	<%if("A".equals(user.getType())){
+  		%>
+  	<td>
+  	<a href="All_Spots.jsp?action=delete&spotid=<%=spot.getId()%>" class="btn btn-danger">Delete</a>
+  	</td>
   </tr>	
-<% } 
+<%} 
+  	}
 
 %>
 	</table>

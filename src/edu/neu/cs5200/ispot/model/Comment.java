@@ -50,7 +50,7 @@ public class Comment {
 		super();
 		Id = id;
 		Content = content;
-		user = user;
+		this.user = user;
 		this.info = info;
 	}
 	
