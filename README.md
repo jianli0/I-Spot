@@ -5,3 +5,6 @@ Completed with Harry Mao.
 
 We also have a demo video,the url is 
 https://youtu.be/xX1dO59QBpU.
+
+Project Documentation:
+https://docs.google.com/document/d/1J2dpAng-0jVsKsRysx040y2N8p4J20HbhaKUETrQGso/edit?usp=sharing
